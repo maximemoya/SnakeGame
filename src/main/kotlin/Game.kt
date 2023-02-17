@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.JFrame
 
-class Game : JFrame(), KeyListener  {
+class Game : JFrame(), KeyListener {
 
     private val gamePlay = GamePlay()
 

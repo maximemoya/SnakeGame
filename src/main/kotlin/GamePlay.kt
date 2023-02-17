@@ -48,7 +48,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         if (moves == 0) {
             snakeXLength[0] = 100
             snakeYLength[0] = 100
-            moves ++
+            moves++
         }
 
         // border of title page
@@ -118,7 +118,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         }
 
         for (b in 1 until lengthOfSnake) {
-            if (snakeXLength[b] == snakeXLength[0] && snakeYLength[b] == snakeYLength[0]){
+            if (snakeXLength[b] == snakeXLength[0] && snakeYLength[b] == snakeYLength[0]) {
                 lengthOfSnake = b
             }
         }
@@ -145,6 +145,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 up = false
                 down = false
             }
+
             KeyEvent.VK_A -> {
                 moves++
                 if (!right) {
@@ -156,6 +157,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 up = false
                 down = false
             }
+
             KeyEvent.VK_W -> {
                 moves++
                 if (!down) {
@@ -167,6 +169,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 left = false
                 right = false
             }
+
             KeyEvent.VK_S -> {
                 moves++
                 if (!up) {
