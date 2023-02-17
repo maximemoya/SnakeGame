@@ -1,5 +1,3 @@
-package game
-
 import java.awt.Color
 import java.awt.Font
 import java.awt.Graphics
@@ -57,7 +55,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         g?.color = Color.WHITE
         g?.drawRect(24, 10, 851, 55)
 
-        val inputStreamTitleImage = this::class.java.getResource("../assets/snaketitle.jpg")
+        val inputStreamTitleImage = this::class.java.getResource("assets/snaketitle.jpg")
         val titleImage = ImageIcon(inputStreamTitleImage, "the title image")
         titleImage.paintIcon(this, g, 25, 11)
 
@@ -73,7 +71,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         g?.drawString("score: $lengthOfSnake", 760, 45)
 
         // enemy bubbles
-        val enemyImagePath: URL = this::class.java.getResource("../assets/enemy.png")
+        val enemyImagePath: URL = this::class.java.getResource("assets/enemy.png")
             ?: throw Error("URL from enemyImage is NULL")
         val enemyImage = ImageIcon(enemyImagePath, "the enemy image")
         enemyImage.paintIcon(this, g, enemyXPosArray[enemyXPos], enemyYPosArray[enemyYPos])
@@ -87,19 +85,19 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         }
 
         // snake
-        val pathRightMouth: URL = this::class.java.getResource("../assets/rightmouth.png")
+        val pathRightMouth: URL = this::class.java.getResource("assets/rightmouth.png")
             ?: throw Error("URL from pathRightMouth is NULL")
         val rightMouth = ImageIcon(pathRightMouth, "the right head direction image")
-        val pathLeftMouth: URL = this::class.java.getResource("../assets/leftmouth.png")
+        val pathLeftMouth: URL = this::class.java.getResource("assets/leftmouth.png")
             ?: throw Error("URL from pathLeftMouth is NULL")
         val leftMouth = ImageIcon(pathLeftMouth, "the left head direction image")
-        val pathUpMouth: URL = this::class.java.getResource("../assets/upmouth.png")
+        val pathUpMouth: URL = this::class.java.getResource("assets/upmouth.png")
             ?: throw Error("URL from pathUpMouth is NULL")
         val upMouth = ImageIcon(pathUpMouth, "the up head direction image")
-        val pathDownMouth: URL = this::class.java.getResource("../assets/downmouth.png")
+        val pathDownMouth: URL = this::class.java.getResource("assets/downmouth.png")
             ?: throw Error("URL from pathDownMouth is NULL")
         val downMouth = ImageIcon(pathDownMouth, "the down head direction image")
-        val pathSnakeImage: URL = this::class.java.getResource("../assets/snakeimage.png")
+        val pathSnakeImage: URL = this::class.java.getResource("assets/snakeimage.png")
             ?: throw Error("URL from pathSnakeImage is NULL")
         val snakeImage = ImageIcon(pathSnakeImage, "the snake body image")
 
