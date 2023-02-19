@@ -1,6 +1,6 @@
 package game
 
-import MyResourceLoader.enemyImagePath
+import MyResourceLoader.bubbleImagePath
 import MyResourceLoader.inputStreamTitleImage
 import MyResourceLoader.pathDownMouth
 import MyResourceLoader.pathLeftMouth
@@ -29,15 +29,17 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
     private var up = false
     private var down = false
 
-    private val enemyXPosArray = Array(34) { i -> 25 * (i + 1) }
-    private val enemyYPosArray = Array(23) { i -> 25 * i + 75 }
+    private val bubbleXPosArray = Array(34) { i -> 25 * (i + 1) }
+    private val bubbleYPosArray = Array(23) { i -> 25 * i + 75 }
 
     private val random = Random()
-    private var enemyXPos: Int = random.nextInt(34)
-    private var enemyYPos: Int = random.nextInt(23)
+    private var bubbleXPos: Int = random.nextInt(34)
+    private var bubbleYPos: Int = random.nextInt(23)
 
-    private val delay = 150
-    private val timer: Timer = Timer(delay, this)
+    private val delayInit = 150
+    private val delayAccumulator = 2
+    private val delayLimit = 50
+    private var timer: Timer = Timer(delayInit, this)
 
     private var lengthOfSnake = 1
     private var moves = 0
@@ -53,42 +55,46 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
     // From JPanel:
     override fun paint(g: Graphics?) {
 
+        // INITIAL POSITION
         if (moves == 0) {
             snakeXLength[0] = 100
             snakeYLength[0] = 100
             moves++
         }
 
-        // border of title page
+        // BORDER TITLE
         val titleImage = ImageIcon(inputStreamTitleImage, "the title image")
         titleImage.paintIcon(this, g, 25, 11)
         g?.color = Color.WHITE
         g?.drawRect(24, 10, 851, 55)
 
-        // border of gameplay
+        // BORDER GAME
         g?.color = Color.WHITE
         g?.drawRect(24, 74, 851, 577)
         g?.color = Color.BLACK
         g?.fillRect(25, 75, 850, 575)
 
-        // score
+        // SCORE
         g?.color = Color.WHITE
         g?.font = Font("arial", Font.PLAIN, 18)
-        g?.drawString("score: $lengthOfSnake", 760, 45)
+        g?.drawString("score: $lengthOfSnake", 730, 35)
+        g?.drawString("speed: ${((25.0 / timer.delay) * 1000).toInt()} px/s", 730, 55)
 
-        // enemy bubbles
-        val enemyImage = ImageIcon(enemyImagePath, "the enemy image")
-        enemyImage.paintIcon(this, g, enemyXPosArray[enemyXPos], enemyYPosArray[enemyYPos])
+        // BUBBLES
+        val bubbleImage = ImageIcon(bubbleImagePath, "the bubble image")
+        bubbleImage.paintIcon(this, g, bubbleXPosArray[bubbleXPos], bubbleYPosArray[bubbleYPos])
 
-        if (enemyXPosArray[enemyXPos] == snakeXLength[0]
-            && enemyYPosArray[enemyYPos] == snakeYLength[0]
+        // SNAKE EAT BUBBLE
+        if (bubbleXPosArray[bubbleXPos] == snakeXLength[0]
+            && bubbleYPosArray[bubbleYPos] == snakeYLength[0]
         ) {
             lengthOfSnake++
-            enemyXPos = random.nextInt(34)
-            enemyYPos = random.nextInt(23)
+            setTimerAfterEatingBubble()
+            bubbleXPos = random.nextInt(34)
+            bubbleYPos = random.nextInt(23)
         }
 
-        // snake
+        // SNAKE
         val rightMouth = ImageIcon(pathRightMouth, "the right head direction image")
         val leftMouth = ImageIcon(pathLeftMouth, "the left head direction image")
         val upMouth = ImageIcon(pathUpMouth, "the up head direction image")
@@ -112,13 +118,27 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
         }
 
         for (b in 1 until lengthOfSnake) {
+
+            // SNAKE EAT HIMSELF
             if (snakeXLength[b] == snakeXLength[0] && snakeYLength[b] == snakeYLength[0]) {
                 lengthOfSnake = b
+                setTimerAfterEatingHimself()
             }
         }
 
         g?.dispose()
 
+    }
+
+    private fun setTimerAfterEatingBubble() {
+        val newDelay = timer.delay - 2
+        timer.delay = if (newDelay >= delayLimit) newDelay else delayLimit
+    }
+
+    private fun setTimerAfterEatingHimself() {
+        val testDelay = delayInit - delayAccumulator * (lengthOfSnake + 1)
+        val newDelay = if (testDelay >= delayLimit) testDelay else delayLimit
+        timer.delay = newDelay
     }
 
     // From KeyListener:

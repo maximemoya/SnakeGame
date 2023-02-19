@@ -4,7 +4,7 @@ object MyResourceLoader {
 
     val inputStreamTitleImage = this::class.java.getResource("assets/snaketitle.jpg")
         ?: throw Error("URL from titleImage is NULL")
-    val enemyImagePath: URL = this::class.java.getResource("assets/enemy.png")
+    val bubbleImagePath: URL = this::class.java.getResource("assets/enemy.png")
         ?: throw Error("URL from enemyImage is NULL")
     val pathRightMouth: URL = this::class.java.getResource("assets/rightmouth.png")
         ?: throw Error("URL from pathRightMouth is NULL")
