@@ -148,7 +148,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
 
     override fun keyPressed(e: KeyEvent?) {
         when (e?.keyCode) {
-            KeyEvent.VK_D -> {
+            KeyEvent.VK_RIGHT -> {
                 moves++
                 if (!left) {
                     right = true
@@ -160,7 +160,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 down = false
             }
 
-            KeyEvent.VK_A -> {
+            KeyEvent.VK_LEFT -> {
                 moves++
                 if (!right) {
                     left = true
@@ -172,7 +172,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 down = false
             }
 
-            KeyEvent.VK_W -> {
+            KeyEvent.VK_UP -> {
                 moves++
                 if (!down) {
                     up = true
@@ -184,7 +184,7 @@ class GamePlay : JPanel(), KeyListener, ActionListener {
                 right = false
             }
 
-            KeyEvent.VK_S -> {
+            KeyEvent.VK_DOWN -> {
                 moves++
                 if (!up) {
                     down = true
